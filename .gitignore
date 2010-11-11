@@ -1,3 +1,5 @@
 nbproject
 *.svn
 log/*
+tests/php/bootstrap.php
+
