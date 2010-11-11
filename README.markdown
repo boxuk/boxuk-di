@@ -133,7 +133,7 @@ $oInjector->getNewClass( 'SomeClass' );
 
 ## Constructor Patterns
 
-The one requirement of the injector is that type hinting or _@AInjectParam_ annotations need to be used to identify dependencies, so only classes can be dependencies.  This makes a clean seperation between class dependencies and class configuration.  For classes created with the injector you will not be able to pass in strings or arrays to the constructor.  You can think of this as...
+The one requirement of the injector is that type hinting or _@InjectParam_ annotations need to be used to identify dependencies, so only classes can be dependencies.  This makes a clean seperation between class dependencies and class configuration.  For classes created with the injector you will not be able to pass in strings or arrays to the constructor.  You can think of this as...
 
 1. Objects are dependencies
 2. Anything else is configuration
@@ -198,7 +198,7 @@ $reflector = $helper->getReflector();
 
 ### Caching
 
-Reflection can be slow, so for your applications production mode it's reccomended to use the _BoxUK\Reflect\Caching_ reflector instead.  You can this through configuration.
+Reflection can be slow, so for your applications production mode it's reccomended to use the _BoxUK\Reflect\Caching_ reflector instead.  You can get this through configuration.
 
 <pre>
 boxuk.reflector = caching
