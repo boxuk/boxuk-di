@@ -3,6 +3,7 @@
 <project name="boxuk-di" basedir="." default="test">
 
     <target name="test" description="Run tests">
+        <mkdir dir="log" />
         <exec command="phpunit --testdox --log-junit log/phpunit.xml tests/php/" passthru="true" checkreturn="true" />
     </target>
 
