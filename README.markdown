@@ -3,6 +3,11 @@
 
 The BoxUK-DI library enables you to easily handle dependency injection between components using annotations and type-hinting, similar to Guice and Spring.
 
+## Dependencies
+
+* PHP 5.3+
+* Addendum 0.4.0+
+
 ## Including the Library
 
 To include the library just include the bootstrap file in your application.
