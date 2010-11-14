@@ -150,6 +150,18 @@ class StandardTest extends \PHPUnit_Framework_TestCase {
         $class = $inject->getClass( 'BoxUK\Inject\StandardInjectorTest_TestClass11' );
     }
 
+    public function testPropertiesWithInjectPropertyAnnotationAreInjectorByVarType() {
+        $inject = $this->getInstance();
+        $class = $inject->getClass( 'BoxUK\Inject\StandardInjectorTest_TestClass7' );
+        $this->assertInstanceOf( 'BoxUK\Inject\StandardInjectorTest_TestClass3', $class->publicProperty );
+    }
+
+    public function testPrivatePropertiesCanBeInjected() {
+        $inject = $this->getInstance();
+        $class = $inject->getClass( 'BoxUK\Inject\StandardInjectorTest_TestClass7' );
+        $this->assertInstanceOf( 'BoxUK\Inject\StandardInjectorTest_TestClass3', $class->getPrivateProperty() );
+    }
+
 }
 
 class StandardInjectorTest_TestClass {}
@@ -196,6 +208,22 @@ interface StandardInjectorTest_TestInterface2 {}
 class StandardInjectorTest_TestClass7 {
 
     public $oObject = null;
+
+    /**
+     * @InjectProperty
+     * @var BoxUK\Inject\StandardInjectorTest_TestClass3
+     */
+    public $publicProperty;
+
+    /**
+     * @InjectProperty
+     * @var BoxUK\Inject\StandardInjectorTest_TestClass3
+     */
+    private $privateProperty;
+
+    public function getPrivateProperty() {
+        return $this->privateProperty;
+    }
     
     /**
      * @InjectMethod

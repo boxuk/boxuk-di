@@ -81,9 +81,74 @@ class StandardTest extends \PHPUnit_Framework_TestCase {
         $this->assertInstanceOf( 'InjectMethod', $annotation );
     }
 
+    public function testPropertiesReturnedByGetClassProperties() {
+        $properties = $this->reflector->getProperties( 'BoxUK\Reflect\SimpleReflectorTest_Class1' );
+        $this->assertEquals( 4, count($properties) );
+    }
+
+    public function testGetClassPropertiesReturnsPrivateProperties() {
+        $properties = $this->reflector->getProperties( 'BoxUK\Reflect\SimpleReflectorTest_Class1' );
+        $this->assertTrue( in_array('private',$properties) );
+    }
+
+    public function testGetClassPropertiesReturnsProtectedProperties() {
+        $properties = $this->reflector->getProperties( 'BoxUK\Reflect\SimpleReflectorTest_Class1' );
+        $this->assertTrue( in_array('protected',$properties) );
+    }
+
+    public function testPropertyHasAnnotationReturnsTrueWhenThePropertyHasTheAnnotation() {
+        $this->assertTrue( $this->reflector->propertyHasAnnotation('BoxUK\Reflect\SimpleReflectorTest_Class1','public','InjectProperty') );
+    }
+
+    public function testPropertyHasAnnotationReturnsFalseWhenThePropertyDoesntHaveTheAnnotation() {
+        $this->assertFalse( $this->reflector->propertyHasAnnotation('BoxUK\Reflect\SimpleReflectorTest_Class1','another','InjectProperty') );
+    }
+
+    public function testAtVarClassNameReturnedForClassProperty() {
+        $this->assertEquals( 'ChildClass', $this->reflector->getPropertyClass('BoxUK\Reflect\SimpleReflectorTest_Class1','public') );
+    }
+
+    public function testGettingAPropertiesClassCanHandleNamespaces() {
+        $this->assertEquals( 'BoxUK\Reflect\SimpleReflectorTest_Class2', $this->reflector->getPropertyClass('BoxUK\Reflect\ChildClass','someProperty') );
+    }
+    
+    public function testFalseReturnedWhenClassPropertyDoesntHaveAnAtVar() {
+        $this->assertFalse( $this->reflector->getPropertyClass('BoxUK\Reflect\SimpleReflectorTest_Class1','another') );
+    }
+
+    public function testGetpropertiesDoesntReturnPropertiesFromIgnoredClasses() {
+        $this->reflector->addIgnoredClassPattern( 'Doctrine_.*' );
+        $properties = $this->reflector->getProperties( 'BoxUK\Reflect\ChildClass' );
+        $this->assertFalse( in_array('ignoreMe',$properties) );
+    }
+
+    public function testIspublicpropertyReturnsTrueWhenPropertyIsPublic() {
+        $this->assertTrue( $this->reflector->isPublicProperty('BoxUK\Reflect\SimpleReflectorTest_Class1','public') );
+    }
+
+    public function testIspublicpropertyReturnsFalseWhenPropertyIsProtected() {
+        $this->assertFalse( $this->reflector->isPublicProperty('BoxUK\Reflect\SimpleReflectorTest_Class1','protected') );
+    }
+
+    public function testIspublicpropertyReturnsFalseWhenPropertyIsPrivate() {
+        $this->assertFalse( $this->reflector->isPublicProperty('BoxUK\Reflect\SimpleReflectorTest_Class1','private') );
+    }
+
 }
 
 class SimpleReflectorTest_Class1 {
+    /**
+     * @InjectProperty
+     * @var ChildClass
+     */
+    public $public;
+    public $another;
+    protected $protected;
+    /**
+     * @InjectProperty
+     * @var ChildClass
+     */
+    private $private;
     public function foo() {}
     /**
      * @InjectParam(variable=oClass1)
@@ -101,10 +166,17 @@ class SimpleReflectorTest_Class2 extends SimpleReflectorTest_Class1 {
 }
 
 class Doctrine_Class {
+    public $ignoreMe;
     /**
      * @InjectMethod
      */
     public function docFoo() {}
 }
 
-class ChildClass extends Doctrine_Class {}
+class ChildClass extends Doctrine_Class {
+    /**
+     * @InjectProperty
+     * @var BoxUK\Reflect\SimpleReflectorTest_Class2
+     */
+    public $someProperty;
+}

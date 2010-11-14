@@ -114,4 +114,46 @@ interface Reflector {
      */
     public function addIgnoredClassPattern( $regex );
 
+    /**
+     * Returns an array of the names of a classes private and public properties
+     *
+     * @param string $className
+     *
+     * @return array
+     */
+    public function getProperties( $className );
+
+    /**
+     * Indicates if a property has a particular annotation
+     *
+     * @param string $className
+     * @param string $propertyName
+     * @param string $annotation
+     *
+     * @return bool
+     */
+    public function propertyHasAnnotation( $className, $propertyName, $annotation );
+
+    /**
+     * Fetch the specified property class for the classes property.  Returns false
+     * if nothing is found.
+     * 
+     * @param string $className
+     * @param string $propertyName
+     * 
+     * @return Annotation
+     */
+    public function getPropertyClass( $className, $propertyName );
+
+    /**
+     * Determines if a property is public or not.  Returns true if it is public,
+     * or false if it's protected or private.
+     *
+     * @param string $className
+     * @param string $propertyName
+     *
+     * @return bool
+     */
+    public function isPublicProperty( $className, $propertyName );
+
 }

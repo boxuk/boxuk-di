@@ -25,6 +25,7 @@ class Standard implements Injector {
      */
     const INJECT_METHOD = 'InjectMethod';
     const INJECT_PARAM = 'InjectParam';
+    const INJECT_PROPERTY = 'InjectProperty';
 
     /**
      * @var BoxUK\Reflect\Reflector
@@ -156,6 +157,7 @@ class Standard implements Injector {
             : new $className();
 
         $this->injectMethods( $oClass );
+        $this->injectProperties( $oClass );
 
         return $oClass;
 
@@ -276,19 +278,19 @@ class Standard implements Injector {
     }
 
     /**
-     * Checks a classes method to find injectable ones (AInjectMethod), but won't
+     * Checks a classes method to find injectable ones (InjectMethod), but won't
      * descend into ignored parent classes.
      *
-     * @param object $oClass
+     * @param object $class
      */
-    protected function injectMethods( $oClass ) {
+    protected function injectMethods( $class ) {
 
-        $className = get_class( $oClass );
+        $className = get_class( $class );
         $methods = $this->reflector->getMethods( $className );
 
         foreach ( $methods as $methodName ) {
             if ( $this->reflector->methodHasAnnotation($className,$methodName,self::INJECT_METHOD) ) {
-                $this->injectMethod( $oClass, $methodName );
+                $this->injectMethod( $class, $methodName );
             }
         }
 
@@ -297,15 +299,57 @@ class Standard implements Injector {
     /**
      * Injects a method with it's parameters
      *
-     * @param object $oClass
+     * @param object $class
      * @param string $methodName
      */
-    protected function injectMethod( $oClass, $methodName ) {
+    protected function injectMethod( $class, $methodName ) {
 
-        $params = $this->getMethodParams( get_class($oClass), $methodName );
+        $params = $this->getMethodParams( get_class($class), $methodName );
 
-        call_user_func_array( array($oClass,$methodName), $params );
+        call_user_func_array( array($class,$methodName), $params );
         
+    }
+
+    /**
+     * Do property injection on the specified class
+     *
+     * @param object $class
+     */
+    protected function injectProperties( $class ) {
+
+        $className = get_class( $class );
+        $properties = $this->reflector->getProperties( $className );
+        
+        foreach ( $properties as $propertyName ) {
+            if ( $this->reflector->propertyHasAnnotation($class,$propertyName,self::INJECT_PROPERTY) ) {
+                $this->injectProperty( $class, $propertyName );
+            }
+        }
+
+    }
+
+    /**
+     * Inject the specified property of the class
+     *
+     * @param object $class
+     * @param string $propertyName
+     */
+    protected function injectProperty( $class, $propertyName ) {
+
+        $className = get_class( $class );
+        $propertyClass = $this->reflector->getPropertyClass( $className, $propertyName );
+        $propertyValue = $this->getClass( $propertyClass );
+
+        if ( $this->reflector->isPublicProperty($className,$propertyName) ) {
+            $class->$propertyName = $propertyValue;
+        }
+
+        else {
+            $property = new \ReflectionProperty( $className, $propertyName );
+            $property->setAccessible( true );
+            $property->setValue( $class, $propertyValue );
+        }
+
     }
 
 }
