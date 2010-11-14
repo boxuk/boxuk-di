@@ -18,7 +18,7 @@ class CachingTest extends \PHPUnit_Framework_TestCase {
 
     public function testCachingReflectorOverridesAllMethodsDefinedInTheReflectorClass() {
         $ignoredMethodNames = array( 'addIgnoredClassPattern' );
-        $methodNames = get_class_methods( 'BoxUK\Reflect\Caching' );
+        $methodNames = get_class_methods( 'BoxUK\Reflect\Reflector' );
         $cachingClassName = 'BoxUK\Reflect\Caching';
         foreach ( $methodNames as $methodName ) {
             $method = new \ReflectionMethod( $cachingClassName, $methodName );
@@ -26,6 +26,20 @@ class CachingTest extends \PHPUnit_Framework_TestCase {
                  && !in_array($methodName,$ignoredMethodNames) ) {
                 $this->fail(sprintf( '%s does not override method %s', $cachingClassName, $methodName ));
             }
+        }
+    }
+
+    public function testCachingReflectorHandlesAllMethodsDefinedInTheReflectorClass() {
+        $cache = $this->getMock( 'BoxUK\Reflect\Cache\Base' );
+        $reflector = $this->getMock( 'BoxUK\Reflect\Caching', array('handle'), array($cache) );
+        $ignoredMethodNames = array( 'addIgnoredClassPattern' );
+        $methodNames = get_class_methods( 'BoxUK\Reflect\Reflector' );
+        $reflector->expects( $this->exactly(count($methodNames) - count($ignoredMethodNames)) )
+                  ->method( 'handle' );
+        $cachingClassName = 'BoxUK\Reflect\Caching';
+        foreach ( $methodNames as $methodName ) {
+            $method = new \ReflectionMethod( $cachingClassName, $methodName );
+            $method->invokeArgs( $reflector, array('','','') );
         }
     }
 
