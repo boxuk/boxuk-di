@@ -12,18 +12,21 @@ class CachingTest extends \PHPUnit_Framework_TestCase {
     public function testReflectionCacheDataIsWrittenToCache() {
         $cache = $this->getMockForAbstractClass( 'BoxUK\Reflect\Cache\Base', array('rawCommit','rawRead') );
         $reflector = new Caching( $cache );
-        ///////////
         $reflector->getParentClass( 'Caching' );
-        $reflector->hasMethod( 'BoxUK\Reflect\Cache\Base', 'foo' );
-        $reflector->getMethodParams( 'BoxUK\Reflect\Cache\Base', 'write' );
-        $reflector->getMethods( 'BoxUK\Reflect\Cache\Base' );
-        $reflector->classHasAnnotation( 'BoxUK\Reflect\Cache\Base', 'ScopeSingleton' );
-        $reflector->methodHasAnnotation( 'BoxUK\Reflect\Cache\Base', 'read', 'ScopeSingleton' );
-        $reflector->getMethodAnnotations( 'BoxUK\Reflect\Cache\Base', 'read', 'ScopeSingleton' );
-        $reflector->getMethodAnnotation( 'BoxUK\Reflect\Cache\Base', 'read', 'ScopeSingleton' );
-        $reflector->getClassAnnotation( 'BoxUK\Reflect\Cache\Base', 'ScopeSingleton' );
-        ///////////
         $this->assertNotEmpty( $cache->read() );
+    }
+
+    public function testCachingReflectorOverridesAllMethodsDefinedInTheReflectorClass() {
+        $ignoredMethodNames = array( 'addIgnoredClassPattern' );
+        $methodNames = get_class_methods( 'BoxUK\Reflect\Caching' );
+        $cachingClassName = 'BoxUK\Reflect\Caching';
+        foreach ( $methodNames as $methodName ) {
+            $method = new \ReflectionMethod( $cachingClassName, $methodName );
+            if ( $method->getDeclaringClass()->getName() != $cachingClassName
+                 && !in_array($methodName,$ignoredMethodNames) ) {
+                $this->fail(sprintf( '%s does not override method %s', $cachingClassName, $methodName ));
+            }
+        }
     }
 
     public function testDataIsReadFromCacheWhenReflectorIsInitialised() {
