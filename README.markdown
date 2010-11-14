@@ -102,7 +102,7 @@ public function setClassLoader( ClassLoader $oClassLoader ) {}
 
 *NB:* When doing method injection there is no constraint on the name of the method, or the number of parameters injected.
 
-## Parameter Types
+### Parameter Types
 
 If your method requires tweaking the injected parameter types then you can specify these with another annotation:
 
@@ -117,6 +117,20 @@ public function setSomething( SomeInterface $class ) {
 </pre>
 
 This can also be used for constructors.
+
+## Property Injection
+
+The final type of injection available is property injection.  This can be used for public *and* private properties.
+
+<pre>
+/**
+ * @InjectProperty
+ * @var SomeClass
+ */
+private $someClass;
+</pre>
+
+The type of object injected is specified by the *@var* PHPDoc.
 
 ## Inheritance
 
