@@ -321,7 +321,7 @@ class Standard implements Injector {
         $properties = $this->reflector->getProperties( $className );
         
         foreach ( $properties as $propertyName ) {
-            if ( $this->reflector->propertyHasAnnotation($class,$propertyName,self::INJECT_PROPERTY) ) {
+            if ( $this->reflector->propertyHasAnnotation($className,$propertyName,self::INJECT_PROPERTY) ) {
                 $this->injectProperty( $class, $propertyName );
             }
         }
