@@ -77,6 +77,17 @@ class BaseTest extends \PHPUnit_Framework_TestCase {
         $this->cache->setKey( 'new' );
     }
 
+    public function testKeyListenersDoesntRemoveListenersNotAskedToBeRemoved() {
+        $listener1 = $this->getMockListener();
+        $listener2 = $this->getMockListener();
+        $listener2->expects( $this->once() )
+                  ->method( 'beforeKeyChange' );
+        $this->cache->addKeyListener( $listener1 );
+        $this->cache->addKeyListener( $listener2 );
+        $this->cache->removeKeyListener( $listener1 );
+        $this->cache->setKey( 'new key' );
+    }
+
 }
 
 abstract class MyKeyListener implements KeyListener {}
