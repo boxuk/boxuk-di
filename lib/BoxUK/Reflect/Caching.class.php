@@ -141,7 +141,7 @@ class Caching extends Standard implements KeyListener {
      */
     public function getParentClass( $className ) {
 
-        return $this->handle( 'getParentClass', array( $className ) );
+        return $this->handle( 'getParentClass', array($className) );
 
     }
 
@@ -150,7 +150,7 @@ class Caching extends Standard implements KeyListener {
      */
     public function hasMethod( $className, $method ) {
 
-        return $this->handle( 'hasMethod', array( $className, $method ) );
+        return $this->handle( 'hasMethod', array($className,$method) );
 
     }
 
@@ -159,7 +159,7 @@ class Caching extends Standard implements KeyListener {
      */
     public function getMethodParams( $className, $method ) {
 
-        return $this->handle( 'getMethodParams', array( $className, $method ) );
+        return $this->handle( 'getMethodParams', array($className,$method) );
 
     }
 
@@ -168,7 +168,7 @@ class Caching extends Standard implements KeyListener {
      */
     public function getMethods( $className ) {
 
-        return $this->handle( 'getMethods', array( $className ) );
+        return $this->handle( 'getMethods', array($className) );
 
     }
 
@@ -177,7 +177,7 @@ class Caching extends Standard implements KeyListener {
      */
     public function classHasAnnotation( $className, $annotation ) {
 
-        return $this->handle( 'classHasAnnotation', array( $className, $annotation ) );
+        return $this->handle( 'classHasAnnotation', array($className,$annotation) );
 
     }
 
@@ -186,7 +186,7 @@ class Caching extends Standard implements KeyListener {
      */
     public function methodHasAnnotation( $className, $methodName, $annotation ) {
 
-        return $this->handle( 'methodHasAnnotation', array( $className, $methodName, $annotation ) );
+        return $this->handle( 'methodHasAnnotation', array($className,$methodName,$annotation) );
 
     }
 
@@ -195,7 +195,7 @@ class Caching extends Standard implements KeyListener {
      */
     public function getMethodAnnotations( $className, $methodName, $annotation ) {
 
-        return $this->handle( 'getMethodAnnotations', array( $className, $methodName, $annotation ) );
+        return $this->handle( 'getMethodAnnotations', array($className,$methodName,$annotation) );
 
     }
 
@@ -204,8 +204,53 @@ class Caching extends Standard implements KeyListener {
      */
     public function getClassAnnotation( $className, $annotation ) {
 
-        return $this->handle( 'getClassAnnotation', array( $className, $annotation ) );
+        return $this->handle( 'getClassAnnotation', array($className,$annotation) );
 
+    }
+
+    /**
+     * Intercept method
+     */
+    public function getMethodAnnotation( $className, $methodName, $annotation ) {
+
+        return $this->handle( 'getMethodAnnotation', array($className,$methodName,$annotation) );
+        
+    }
+
+    /**
+     * Intercept method
+     */
+    public function getProperties( $className ) {
+
+        return $this->handle( 'getProperties', array($className) );
+
+    }
+
+    /**
+     * Intercept method
+     */
+    public function propertyHasAnnotation( $className, $propertyName, $annotation ) {
+
+        return $this->handle( 'propertyHasAnnotation', array($className,$propertyName,$annotation) );
+
+    }
+
+    /**
+     * Intercept method
+     */
+    public function getPropertyClass( $className, $propertyName ) {
+
+        return $this->handle( 'getPropertyClass', array($className,$propertyName) );
+
+    }
+
+    /**
+     * Intercept method
+     */
+    public function isPublicProperty( $className, $propertyName ) {
+
+        return $this->handle( 'isPublicProperty', array($className,$propertyName) );
+        
     }
 
 }

@@ -4,9 +4,11 @@ namespace BoxUK\Reflect;
 
 use ReflectionClass;
 use ReflectionMethod;
+use ReflectionProperty;
 
 use ReflectionAnnotatedClass;
 use ReflectionAnnotatedMethod;
+use ReflectionAnnotatedProperty;
 
 /**
  * Standard reflector implementation which provides methods for accessing
@@ -122,20 +124,35 @@ class Standard implements Reflector {
 
         foreach ( $class->getMethods() as $method ) {
 
-            $className = $method->getDeclaringClass()
-                                 ->getName();
+            $declaringClass = $method->getDeclaringClass()
+                                     ->getName();
 
-            foreach ( $this->ignoredPatterns as $ignoreRegex ) {
-                if ( preg_match("/$ignoreRegex/",$className) ) {
-                    break 2;
-                }
+            if ( !$this->isIgnoredClass($declaringClass) ) {
+                $methods[] = $method->getName();
             }
-
-            $methods[] = $method->getName();
 
         }
 
         return $methods;
+
+    }
+
+    /**
+     * Indicates if the class name matches one of the ignored patterns
+     *
+     * @param string $className
+     *
+     * @return bool
+     */
+    protected function isIgnoredClass( $className ) {
+
+        foreach ( $this->ignoredPatterns as $ignoreRegex ) {
+            if ( preg_match("/$ignoreRegex/",$className) ) {
+                return true;
+            }
+        }
+
+        return false;
 
     }
 
@@ -219,6 +236,87 @@ class Standard implements Reflector {
         $class = new ReflectionAnnotatedClass( $className );
 
         return $class->getAnnotation( $annotation );
+
+    }
+
+    /**
+     * Returns an array of the names of a classes properties (public and private)
+     *
+     * @param string $className
+     *
+     * @return array
+     */
+    public function getProperties( $className ) {
+        
+        $class = new ReflectionClass( $className );
+        $properties = array();
+        
+        foreach ( $class->getProperties() as $property ) {
+
+            $declaringClass = $property->getDeclaringClass()
+                                       ->getName();
+
+            if ( !$this->isIgnoredClass($declaringClass) ) {
+                $properties[] = $property->getName();
+            }
+
+        }
+        
+        return $properties;
+
+    }
+
+    /**
+     * Indicates if a classes property has the specified annotation
+     *
+     * @param string $className
+     * @param string $propertyName
+     * @param string $annotation
+     *
+     * @return bool
+     */
+    public function propertyHasAnnotation( $className, $propertyName, $annotation ) {
+
+        $property = new ReflectionAnnotatedProperty( $className, $propertyName );
+
+        return $property->hasAnnotation( $annotation );
+
+    }
+
+    /**
+     * Returns the declared class for a classes property (eg. @var SomeClass)
+     *
+     * @param string $className
+     * @param string $propertyName
+     *
+     * @return string
+     */
+    public function getPropertyClass( $className, $propertyName ) {
+        
+        $property = new ReflectionProperty( $className, $propertyName );
+        $comment = $property->getDocComment();
+
+        if ( preg_match('/@var ([\w\\\\]+)/i',$comment,$matches) ) {
+            return $matches[ 1 ];
+        }
+
+        return false;
+
+    }
+
+    /**
+     * Indicates if a given class property is public
+     *
+     * @param string $className
+     * @param string $propertyName
+     *
+     * @return bool
+     */
+    public function isPublicProperty( $className, $propertyName ) {
+
+        $property = new ReflectionProperty( $className, $propertyName );
+
+        return $property->isPublic();
 
     }
 

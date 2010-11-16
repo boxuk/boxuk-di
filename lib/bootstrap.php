@@ -2,6 +2,7 @@
 
 require 'BoxUK/Inject/Annotation/InjectMethod.class.php';
 require 'BoxUK/Inject/Annotation/InjectParam.class.php';
+require 'BoxUK/Inject/Annotation/InjectProperty.class.php';
 require 'BoxUK/Inject/Annotation/ScopeSingleton.class.php';
 require 'BoxUK/Inject/Annotation/ScopeSession.class.php';
 
