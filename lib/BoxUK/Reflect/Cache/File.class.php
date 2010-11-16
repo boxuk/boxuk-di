@@ -51,8 +51,10 @@ class File extends Base {
      */
     public function rawCommit() {
 
+        $cachePath = $this->getCachePath();
+
         file_put_contents(
-            $this->getCachePath(),
+            $cachePath,
             serialize( $this->cacheData )
         );
 

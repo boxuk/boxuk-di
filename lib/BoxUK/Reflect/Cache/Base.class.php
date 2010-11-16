@@ -95,12 +95,30 @@ abstract class Base implements Cache {
     public function setKey( $key ) {
 
         if ( $this->key != $key ) {
+            $oldKey = $this->key;
+            $newKey = $key;
+            $this->fireKeyChange( 'before', $oldKey, $newKey );
             $this->key = $key;
-            foreach ( $this->keyListeners as $listener ) {
-                $listener->keyChanged();
-            }
+            $this->fireKeyChange( 'after', $oldKey, $newKey );
         }
         
+    }
+
+    /**
+     * Fires a key change event to registered listeners
+     *
+     * @param string $type 'before' or 'after'
+     * @param string $oldKey
+     * @param string $newKey
+     */
+    protected function fireKeyChange( $type, $oldKey, $newKey ) {
+
+        $method = sprintf( '%sKeyChange', $type );
+
+        foreach ( $this->keyListeners as $listener ) {
+            $listener->$method( $oldKey, $newKey );
+        }
+
     }
 
     /**
@@ -156,18 +174,5 @@ abstract class Base implements Cache {
         $this->keyListeners = $keepListeners;
 
     }
-
-    /**
-     * Read the data from the cache (return empty array if cache miss)
-     *
-     * @return array
-     */
-    public abstract function rawRead();
-
-    /**
-     * Commit the data to the cache
-     * 
-     */
-    public abstract function rawCommit();
 
 }

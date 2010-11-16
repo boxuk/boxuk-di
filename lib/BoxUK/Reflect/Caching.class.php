@@ -81,18 +81,31 @@ class Caching extends Standard implements KeyListener {
      */
     protected function load() {
         
-        $this->cacheData = $this->cache->read();
+        $this->cacheData = $this->cache->rawRead();
 
     }
 
     /**
-     * The cache key has changed, we need to commit and reload the cache or
+     * The cache key is about to change, we need to commit or
      * the data will not be available next run.
      *
+     * @param string $oldKey
+     * @param string $newKey
      */
-    public function keyChanged() {
+    public function beforeKeyChange( $oldKey, $newKey ) {
 
         $this->cache->commit();
+
+    }
+
+    /**
+     * The cache key has changed, see if there's any new cache to read
+     *
+     * @param string $oldKey
+     * @param string $newKey
+     */
+    public function afterKeyChange( $oldKey, $newKey ) {
+
         $this->load();
 
     }

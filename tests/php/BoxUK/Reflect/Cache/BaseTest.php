@@ -7,7 +7,14 @@ require_once 'tests/php/bootstrap.php';
 class BaseTest extends \PHPUnit_Framework_TestCase {
 
     private $cache;
-    
+
+    private function getMockListener() {
+        return $this->getMock(
+            'BoxUK\Reflect\Cache\MyKeyListener',
+            array( 'beforeKeyChange', 'afterKeyChange' )
+        );
+    }
+
     public function setUp() {
         $this->cache = $this->getMockForAbstractClass( '\BoxUK\Reflect\Cache\Base' );
     }
@@ -23,29 +30,51 @@ class BaseTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testKeyListenersAddedToCacheGetEventsWhenTheKeyIsChanged() {
-        $listener = $this->getMock( 'BoxUK\Reflect\Cache\MyKeyListener', array('keyChanged') );
+        $listener = $this->getMockListener();
         $listener->expects( $this->once() )
-                 ->method( 'keyChanged' );
+                 ->method( 'beforeKeyChange' );
+        $listener->expects( $this->once() )
+                 ->method( 'afterKeyChange' );
         $this->cache->addKeyListener( $listener );
         $this->cache->setKey( 'new key' );
     }
 
     public function testKeyListenerDoesntReceiveKeyEventsAfterRemovingIt() {
-        $listener = $this->getMock( 'BoxUK\Reflect\Cache\MyKeyListener', array('keyChanged') );
+        $listener = $this->getMockListener();
         $listener->expects( $this->never() )
-                 ->method( 'keyChanged' );
+                 ->method( 'beforeKeyChange' );
         $this->cache->addKeyListener( $listener );
         $this->cache->removeKeyListener( $listener );
         $this->cache->setKey( 'new key' );
     }
 
     public function testKeyChangedEventNotFiredWhenTheNewKeyIsTheSameAsTheOldOne() {
-        $listener = $this->getMock( 'BoxUK\Reflect\Cache\MyKeyListener', array('keyChanged') );
+        $listener = $this->getMockListener();
         $listener->expects( $this->once() )
-                 ->method( 'keyChanged' );
+                 ->method( 'beforeKeyChange' );
         $this->cache->addKeyListener( $listener );
         $this->cache->setKey( 'new key' );
         $this->cache->setKey( 'new key' );
+    }
+
+    public function testBeforeKeyChangeReceivesTheOldKeyAndTheNewKey() {
+        $listener = $this->getMockListener();
+        $listener->expects( $this->once() )
+                 ->method( 'beforeKeyChange' )
+                 ->with( $this->equalTo('old'), $this->equalTo('new') );
+        $this->cache->setKey( 'old' );
+        $this->cache->addKeyListener( $listener );
+        $this->cache->setKey( 'new' );
+    }
+
+    public function testAfterKeyChangeReceivesTheOldKeyAndTheNewKey() {
+        $listener = $this->getMockListener();
+        $listener->expects( $this->once() )
+                 ->method( 'afterKeyChange' )
+                 ->with( $this->equalTo('old'), $this->equalTo('new') );
+        $this->cache->setKey( 'old' );
+        $this->cache->addKeyListener( $listener );
+        $this->cache->setKey( 'new' );
     }
 
 }

@@ -29,7 +29,7 @@ class CachingTest extends \PHPUnit_Framework_TestCase {
     public function testDataIsReadFromCacheWhenReflectorIsInitialised() {
         $cache = $this->getMock( 'BoxUK\Reflect\Cache\Base' );
         $cache->expects( $this->once() )
-              ->method( 'read' );
+              ->method( 'rawRead' );
         $reflector = new Caching( $cache );
         $reflector->init();
     }
@@ -53,7 +53,7 @@ class CachingTest extends \PHPUnit_Framework_TestCase {
         $cache->expects( $this->exactly(1) ) // once on key change
               ->method( 'commit' );
         $cache->expects( $this->exactly(2) ) // once for init, then once for reload
-              ->method( 'read' );
+              ->method( 'rawRead' );
         $reflector = new Caching( $cache );
         $reflector->init();
         $cache->setKey( 'some-new-key' );

@@ -16,11 +16,19 @@ interface Cache {
 
     /**
      * Reads the reflection cache data back from the cache, or returns an empty
-     * array if there is no cached data.
+     * array if there is no cached data.  If there is data in the cache that will
+     * be returned, use rawRead() to force getting new data.
      *
      * @returna rray
      */
     public function read();
+
+    /**
+     * Read the data from the cache (return empty array if cache miss)
+     *
+     * @return array
+     */
+    public function rawRead();
 
     /**
      * Writes the array of reflection cache information to the cache object, but
@@ -35,6 +43,12 @@ interface Cache {
      *
      */
     public function commit();
+
+    /**
+     * Commit the data to the cache
+     *
+     */
+    public function rawCommit();
 
     /**
      * Set the key to use to write into the cache.

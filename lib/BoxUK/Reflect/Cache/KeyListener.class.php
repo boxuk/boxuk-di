@@ -9,8 +9,19 @@ namespace BoxUK\Reflect\Cache;
 interface KeyListener {
 
     /**
-     * Indicates
+     * Indicates a key change is about to occur
+     *
+     * @param string $oldKey
+     * @param string $newKey
      */
-    public function keyChanged();
+    public function beforeKeyChange( $oldKey, $newKey );
+
+    /**
+     * Indicates a key change has just occurred
+     *
+     * @param string $oldKey
+     * @param string $newKey
+     */
+    public function afterKeyChange( $oldKey, $newKey );
 
 }

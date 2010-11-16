@@ -35,13 +35,6 @@ class FileTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals( $data, $cache2->read() );
     }
 
-    public function testCacheDataIsReturnedAfterBeingWritten() {
-        $data = array( 'foo' => 'bar' );
-        $cache = new File();
-        $cache->write( $data );
-        $this->assertEquals( $data, $cache->read() );
-    }
-
     public function testCacheDirectoryCanBeAccessedViaGetterAfterInit() {
         $dir = '/path/to/some/dir';
         $this->cache->init( $dir );
