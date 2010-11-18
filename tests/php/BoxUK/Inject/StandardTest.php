@@ -162,6 +162,20 @@ class StandardTest extends \PHPUnit_Framework_TestCase {
         $this->assertInstanceOf( 'BoxUK\Inject\StandardInjectorTest_TestClass3', $class->getPrivateProperty() );
     }
 
+    public function testInjectMethodDoesMethodInjection() {
+        $inject = $this->getInstance();
+        $class = new StandardInjectorTest_TestModel1();
+        $inject->inject( $class );
+        $this->assertInstanceOf( 'BoxUK\Inject\StandardInjectorTest_TestClass3', $class->object );
+    }
+    
+    public function testInjectMethodDoesPropertyInjection() {
+        $inject = $this->getInstance();
+        $class = new StandardInjectorTest_TestClass7();
+        $inject->inject( $class );
+        $this->assertInstanceOf( 'BoxUK\Inject\StandardInjectorTest_TestClass3', $class->publicProperty );
+    }
+
 }
 
 class StandardInjectorTest_TestClass {}

@@ -152,14 +152,25 @@ class Standard implements Injector {
      */
     public function getNewClass( $className ) {
 
-        $oClass = $this->hasInjectableConstructor( $className )
+        $object = $this->hasInjectableConstructor( $className )
             ? $this->getInstance( $className )
             : new $className();
 
-        $this->injectMethods( $oClass );
-        $this->injectProperties( $oClass );
+        $this->inject( $object );
 
-        return $oClass;
+        return $object;
+
+    }
+
+    /**
+     * Do method and property injection on the specified object
+     *
+     * @param object $object
+     */
+    public function inject( $object ) {
+
+        $this->injectMethods( $object );
+        $this->injectProperties( $object );
 
     }
 

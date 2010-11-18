@@ -55,5 +55,12 @@ interface Injector {
      * @param object $object
      */
     public function checkScope( $object );
+
+    /**
+     * Do method and property injection on the specified object
+     *
+     * @param object $object
+     */
+    public function inject( $object );
     
 }
