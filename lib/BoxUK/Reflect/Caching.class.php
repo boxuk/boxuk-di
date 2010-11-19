@@ -247,6 +247,14 @@ class Caching extends Standard implements KeyListener {
     /**
      * Intercept method
      */
+    public function getPropertyAnnotation( $className, $propertyName, $annotation ) {
+
+        return $this->handle( 'getPropertyAnnotation', array($className,$propertyName,$annotation) );
+    }
+
+    /**
+     * Intercept method
+     */
     public function isPublicProperty( $className, $propertyName ) {
 
         return $this->handle( 'isPublicProperty', array($className,$propertyName) );

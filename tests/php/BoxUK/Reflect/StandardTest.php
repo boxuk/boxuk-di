@@ -65,6 +65,10 @@ class StandardTest extends \PHPUnit_Framework_TestCase {
         $this->assertEquals( 'FooBar', $annotation->implements );
     }
 
+    public function testGettingAClassAnnotationReturnsFalseWhenItDoesntExist() {
+        $this->assertFalse( $this->reflector->getClassAnnotation( 'BoxUK\Reflect\SimpleReflectorTest_Class2', 'InjectMethod' ) );
+    }
+
     public function testIgnoredClassPatternsRespectedWhenGettingAClassesMethods() {
         $this->reflector->addIgnoredClassPattern( 'Doctrine_.*' );
         $methods = $this->reflector->getMethods( '\BoxUK\Reflect\ChildClass' );
@@ -132,6 +136,15 @@ class StandardTest extends \PHPUnit_Framework_TestCase {
 
     public function testIspublicpropertyReturnsFalseWhenPropertyIsPrivate() {
         $this->assertFalse( $this->reflector->isPublicProperty('BoxUK\Reflect\SimpleReflectorTest_Class1','private') );
+    }
+
+    public function testGettingAPropertyAnnotationReturnsIt() {
+        $annotation = $this->reflector->getPropertyAnnotation( 'BoxUK\Reflect\SimpleReflectorTest_Class1', 'public', 'InjectProperty' );
+        $this->assertInstanceOf( 'InjectProperty', $annotation );
+    }
+
+    public function testGettingAPropertyAnnotationReturnsFalseWhenItDoesntExist() {
+        $this->assertFalse( $this->reflector->getPropertyAnnotation( 'BoxUK\Reflect\SimpleReflectorTest_Class1', 'public', 'InjectMethod' ) );
     }
 
 }

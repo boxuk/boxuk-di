@@ -176,6 +176,12 @@ class StandardTest extends \PHPUnit_Framework_TestCase {
         $this->assertInstanceOf( 'BoxUK\Inject\StandardInjectorTest_TestClass3', $class->publicProperty );
     }
 
+    public function testPropertyInjectionCanHaveTheClassSpecified() {
+        $inject = $this->getInstance();
+        $class = $inject->getClass( 'BoxUK\Inject\StandardInjectorTest_TestClass7' );
+        $this->assertInstanceOf( 'BoxUK\Inject\StandardInjectorTest_TestClass', $class->publicPropertyWithClass );
+    }
+
 }
 
 class StandardInjectorTest_TestClass {}
@@ -228,6 +234,12 @@ class StandardInjectorTest_TestClass7 {
      * @var BoxUK\Inject\StandardInjectorTest_TestClass3
      */
     public $publicProperty;
+
+    /**
+     * @InjectProperty(class="BoxUK\Inject\StandardInjectorTest_TestClass")
+     * @var BoxUK\Inject\StandardInjectorTest_TestClass3
+     */
+    public $publicPropertyWithClass;
 
     /**
      * @InjectProperty

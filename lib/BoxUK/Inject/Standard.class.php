@@ -348,7 +348,10 @@ class Standard implements Injector {
     protected function injectProperty( $object, $propertyName ) {
 
         $className = get_class( $object );
-        $propertyClass = $this->reflector->getPropertyClass( $className, $propertyName );
+        $annotation = $this->reflector->getPropertyAnnotation( $className, $propertyName, self::INJECT_PROPERTY );
+        $propertyClass = $annotation->class
+            ? $annotation->class
+            : $this->reflector->getPropertyClass( $className, $propertyName );
         $propertyValue = $this->getClass( $propertyClass );
 
         if ( $this->reflector->isPublicProperty($className,$propertyName) ) {

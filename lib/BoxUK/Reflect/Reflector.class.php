@@ -146,6 +146,17 @@ interface Reflector {
     public function getPropertyClass( $className, $propertyName );
 
     /**
+     * Returns the annotation for the specified property, or false
+     *
+     * @param string $className
+     * @param string $propertyName
+     * @param string $annotation
+     *
+     * @return Annotation
+     */
+    public function getPropertyAnnotation( $className, $propertyName, $annotation );
+
+    /**
      * Determines if a property is public or not.  Returns true if it is public,
      * or false if it's protected or private.
      *

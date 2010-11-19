@@ -9,4 +9,13 @@
  * @link http://github.com/boxuk/boxuk-di
  * @since 1.0
  */
-class InjectProperty extends Annotation {}
+class InjectProperty extends Annotation {
+
+    /**
+     * The class to inject for this property - this is optional and will
+     * default to the var annotation value.
+     * @var string
+     */
+    public $class;
+
+}

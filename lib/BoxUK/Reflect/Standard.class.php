@@ -305,6 +305,23 @@ class Standard implements Reflector {
     }
 
     /**
+     * Returns a named annotation on the property
+     *
+     * @param string $className
+     * @param string $propertyName
+     * @param string $annotation
+     *
+     * @return Annotation
+     */
+    public function getPropertyAnnotation( $className, $propertyName, $annotation ) {
+        
+        $property = new ReflectionAnnotatedProperty( $className, $propertyName );
+        
+        return $property->getAnnotation( $annotation );
+
+    }
+
+    /**
      * Indicates if a given class property is public
      *
      * @param string $className
