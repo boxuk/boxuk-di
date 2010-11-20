@@ -24,7 +24,7 @@ The main part of the library is the DI container, a simple example to fetch a cl
 $libraryLoader = $injector->getClass( 'LibraryLoader' );
 </pre>
 
-By default, the injector will create a new class each time it's asked for it.  It's constructor parameters will be analysed to check types so that any dependencies can be injected into the new object (if these dependencies don't exist they will be created).  It's methods will also be checked on creation for any that have been annotated for method injection (see below)
+By default, the injector will create a new class each time it's asked for it.  Its constructor parameters will be analysed to check types so that any dependencies can be injected into the new object (if these dependencies don't exist they will be created).  It's methods will also be checked on creation for any that have been annotated for method injection (see below)
 
 ## Scopes
 
@@ -185,6 +185,14 @@ private function myMethod() {
 </pre>
 
 Don't use the injector as a service locator though inside your class, always specify your dependencies to be injected at construct time.
+
+## Inject Arbitrary Objects
+
+The injector also provides an *inject()* method which can be used to do method injection and property injection on arbitrary objects.  These objects can have been created elsewhere but the injector will scan them for dependencies to inject.
+
+<pre>
+$injector->inject( $someObject );
+</pre>
 
 ## The Helper
 
