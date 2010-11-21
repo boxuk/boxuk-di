@@ -297,12 +297,10 @@ class Standard implements Injector {
     protected function injectMethods( $object ) {
 
         $className = get_class( $object );
-        $methods = $this->reflector->getMethods( $className );
+        $methods = $this->reflector->getMethodsWithAnnotation( $className, self::INJECT_METHOD );
 
         foreach ( $methods as $methodName ) {
-            if ( $this->reflector->methodHasAnnotation($className,$methodName,self::INJECT_METHOD) ) {
-                $this->injectMethod( $object, $methodName );
-            }
+            $this->injectMethod( $object, $methodName );
         }
 
     }
@@ -329,12 +327,10 @@ class Standard implements Injector {
     protected function injectProperties( $object ) {
 
         $className = get_class( $object );
-        $properties = $this->reflector->getProperties( $className );
+        $properties = $this->reflector->getPropertiesWithAnnotation( $className, self::INJECT_PROPERTY );
         
         foreach ( $properties as $propertyName ) {
-            if ( $this->reflector->propertyHasAnnotation($className,$propertyName,self::INJECT_PROPERTY) ) {
-                $this->injectProperty( $object, $propertyName );
-            }
+            $this->injectProperty( $object, $propertyName );
         }
 
     }

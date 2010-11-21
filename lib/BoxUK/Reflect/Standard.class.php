@@ -138,6 +138,30 @@ class Standard implements Reflector {
     }
 
     /**
+     * Returns the classes methods with the specified annotation
+     *
+     * @param string $className
+     * @param string $annotation
+     *
+     * @return array
+     */
+    public function getMethodsWithAnnotation( $className, $annotation ) {
+
+        $methods = $this->getMethods( $className );
+        $methodsWithAnnotation = array();
+        
+        foreach ( $methods as $methodName ) {
+            $method = new ReflectionAnnotatedMethod( $className, $methodName );
+            if ( $method->hasAnnotation($annotation) ) {
+                $methodsWithAnnotation[] = $methodName;
+            }
+        }
+        
+        return $methodsWithAnnotation;
+
+    }
+
+    /**
      * Indicates if the class name matches one of the ignored patterns
      *
      * @param string $className
@@ -263,6 +287,29 @@ class Standard implements Reflector {
         }
         
         return $properties;
+
+    }
+
+    /**
+     * Returns all the classes properties that have the specified annotation
+     *
+     * @param string $className
+     * @param string $annotation
+     *
+     * @return array
+     */
+    public function getPropertiesWithAnnotation( $className, $annotation ) {
+        
+        $properties = $this->getProperties( $className );
+        $propertiesWithAnnotation = array();
+        
+        foreach ( $properties as $propertyName ) {
+            if ( $this->propertyHasAnnotation($className,$propertyName,$annotation) ) {
+                $propertiesWithAnnotation[] = $propertyName;
+            }
+        }
+        
+        return $propertiesWithAnnotation;
 
     }
 
