@@ -266,7 +266,7 @@ class Caching extends Standard implements KeyListener {
      */
     public function getMethodsWithAnnotation( $className, $annotation ) {
 
-        return $this->handle( 'getMethodsWithAnnotation', array($className,$propertyName) );
+        return $this->handle( 'getMethodsWithAnnotation', array($className,$annotation) );
 
     }
 
@@ -275,7 +275,7 @@ class Caching extends Standard implements KeyListener {
      */
     public function getPropertiesWithAnnotation( $className, $annotation ) {
 
-        return $this->handle( 'getPropertiesWithAnnotation', array($className,$propertyName) );
+        return $this->handle( 'getPropertiesWithAnnotation', array($className,$annotation) );
 
     }
 
