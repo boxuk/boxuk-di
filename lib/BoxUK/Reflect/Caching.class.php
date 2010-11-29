@@ -261,4 +261,22 @@ class Caching extends Standard implements KeyListener {
         
     }
 
+    /**
+     * Intercept method
+     */
+    public function getMethodsWithAnnotation( $className, $annotation ) {
+
+        return $this->handle( 'getMethodsWithAnnotation', array($className,$annotation) );
+
+    }
+
+    /**
+     * Intercept method
+     */
+    public function getPropertiesWithAnnotation( $className, $annotation ) {
+
+        return $this->handle( 'getPropertiesWithAnnotation', array($className,$annotation) );
+
+    }
+
 }

@@ -51,6 +51,16 @@ interface Reflector {
     public function getMethods( $className );
 
     /**
+     * Return all methods from a class that have a specified annotation
+     *
+     * @param string $className
+     * @param string $annotation
+     *
+     * @return array
+     */
+    public function getMethodsWithAnnotation( $className, $annotation );
+
+    /**
      * Indicates if a class has the specified annotation
      *
      * @param string $className
@@ -122,6 +132,16 @@ interface Reflector {
      * @return array
      */
     public function getProperties( $className );
+
+    /**
+     * Return all class properties that have a specific annotation
+     *
+     * @param string $className
+     * @param string $annotation
+     *
+     * @return array
+     */
+    public function getPropertiesWithAnnotation( $className, $annotation );
 
     /**
      * Indicates if a property has a particular annotation

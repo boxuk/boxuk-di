@@ -147,6 +147,16 @@ class StandardTest extends \PHPUnit_Framework_TestCase {
         $this->assertFalse( $this->reflector->getPropertyAnnotation( 'BoxUK\Reflect\SimpleReflectorTest_Class1', 'public', 'InjectMethod' ) );
     }
 
+    public function testGetmethodswithannotationReturnsOnlyTheMethodsThatHaveThatAnnotation() {
+        $methods = $this->reflector->getMethodsWithAnnotation( 'BoxUK\Reflect\Doctrine_Class', 'InjectMethod' );
+        $this->assertEquals( 1, count($methods) );
+    }
+
+    public function testGetpropertieswithannotationReturnsOnlyThePropertiesThatHaveThatAnnotation() {
+        $properties = $this->reflector->getPropertiesWithAnnotation( 'BoxUK\Reflect\SimpleReflectorTest_Class1', 'InjectProperty' );
+        $this->assertEquals( 2, count($properties) );
+    }
+
 }
 
 class SimpleReflectorTest_Class1 {
@@ -184,6 +194,7 @@ class Doctrine_Class {
      * @InjectMethod
      */
     public function docFoo() {}
+    public function anotherMethod() {}
 }
 
 class ChildClass extends Doctrine_Class {
