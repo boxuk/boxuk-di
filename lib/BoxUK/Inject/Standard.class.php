@@ -239,6 +239,14 @@ class Standard implements Injector {
             $createClass = $this->getParamClass(
                 $className, $methodName, $paramName, $paramClass
             );
+            if ( !$createClass ) {
+                throw new \Exception(sprintf(
+                    'Non-injectable parameter found in method marked for injection: %s->%s( %s )',
+                    $className,
+                    $methodName,
+                    $paramName
+                ));
+            }
             $params[] = $this->getClass( $createClass );
         }
 
