@@ -13,7 +13,7 @@
               passthru="true" />
     </target>
 
-    <target name="test-php" depends="test-php,test-cs" description="Run all tests"></target>
+    <target name="test" depends="test-php,test-cs" description="Run all tests"></target>
 
     <target name="pear-package">
         <exec command="php package.php" passthru="true" />
