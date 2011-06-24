@@ -30,7 +30,6 @@ class Apc extends Base {
     /**
      * Set the APC wrapper to use
      *
-     * @param ApcWrapper $apcWrapper
      */
     public function setApcWrapper( ApcWrapper $apcWrapper ) {
 

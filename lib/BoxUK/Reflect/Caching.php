@@ -33,7 +33,6 @@ class Caching extends Standard implements KeyListener {
     /**
      * Creates a new caching reflector using the specified cache type
      * 
-     * @param Cache $cache
      */
     public function __construct( Cache $cache ) {
 
@@ -114,7 +113,7 @@ class Caching extends Standard implements KeyListener {
      * Handles a call to a method and caches the results
      *
      * @param string $method
-     * @param array $params
+     * @param array $params Method parameters to be passed to $method
      *
      * @return mixed
      */
@@ -138,6 +137,8 @@ class Caching extends Standard implements KeyListener {
 
     /**
      * Intercept method
+     * 
+     * @param string $className
      */
     public function getParentClass( $className ) {
 
@@ -147,24 +148,32 @@ class Caching extends Standard implements KeyListener {
 
     /**
      * Intercept method
+     * 
+     * @param string $className
+     * @param string $methodName
      */
-    public function hasMethod( $className, $method ) {
+    public function hasMethod( $className, $methodName ) {
 
-        return $this->handle( 'hasMethod', array($className,$method) );
+        return $this->handle( 'hasMethod', array($className,$methodName) );
 
     }
 
     /**
      * Intercept method
+     * 
+     * @param string $className
+     * @param string $methodName
      */
-    public function getMethodParams( $className, $method ) {
+    public function getMethodParams( $className, $methodName ) {
 
-        return $this->handle( 'getMethodParams', array($className,$method) );
+        return $this->handle( 'getMethodParams', array($className,$methodName) );
 
     }
 
     /**
      * Intercept method
+     * 
+     * @param string $className
      */
     public function getMethods( $className ) {
 
@@ -174,6 +183,9 @@ class Caching extends Standard implements KeyListener {
 
     /**
      * Intercept method
+     * 
+     * @param string $className
+     * @param string $annotation
      */
     public function classHasAnnotation( $className, $annotation ) {
 
@@ -183,6 +195,10 @@ class Caching extends Standard implements KeyListener {
 
     /**
      * Intercept method
+     * 
+     * @param string $className
+     * @param string $methodName
+     * @param string $annotation
      */
     public function methodHasAnnotation( $className, $methodName, $annotation ) {
 
@@ -192,6 +208,10 @@ class Caching extends Standard implements KeyListener {
 
     /**
      * Intercept method
+     * 
+     * @param string $className
+     * @param string $methodName
+     * @param string $annotation
      */
     public function getMethodAnnotations( $className, $methodName, $annotation ) {
 
@@ -201,6 +221,9 @@ class Caching extends Standard implements KeyListener {
 
     /**
      * Intercept method
+     * 
+     * @param string $className
+     * @param string $annotation
      */
     public function getClassAnnotation( $className, $annotation ) {
 
@@ -210,6 +233,10 @@ class Caching extends Standard implements KeyListener {
 
     /**
      * Intercept method
+     * 
+     * @param string $className
+     * @param string $methodName
+     * @param string $annotation
      */
     public function getMethodAnnotation( $className, $methodName, $annotation ) {
 
@@ -219,6 +246,8 @@ class Caching extends Standard implements KeyListener {
 
     /**
      * Intercept method
+     * 
+     * @param string $className
      */
     public function getProperties( $className ) {
 
@@ -228,6 +257,10 @@ class Caching extends Standard implements KeyListener {
 
     /**
      * Intercept method
+     * 
+     * @param string $className
+     * @param string $propertyName
+     * @param string $annotation
      */
     public function propertyHasAnnotation( $className, $propertyName, $annotation ) {
 
@@ -237,6 +270,9 @@ class Caching extends Standard implements KeyListener {
 
     /**
      * Intercept method
+     * 
+     * @param string $className
+     * @param string $propertyName
      */
     public function getPropertyClass( $className, $propertyName ) {
 
@@ -246,6 +282,10 @@ class Caching extends Standard implements KeyListener {
 
     /**
      * Intercept method
+     * 
+     * @param string $className
+     * @param string $propertyName
+     * @param string $annotation
      */
     public function getPropertyAnnotation( $className, $propertyName, $annotation ) {
 
@@ -254,6 +294,9 @@ class Caching extends Standard implements KeyListener {
 
     /**
      * Intercept method
+     * 
+     * @param string $className
+     * @param string $propertyName
      */
     public function isPublicProperty( $className, $propertyName ) {
 
@@ -263,6 +306,9 @@ class Caching extends Standard implements KeyListener {
 
     /**
      * Intercept method
+     * 
+     * @param string $className
+     * @param string $annotation
      */
     public function getMethodsWithAnnotation( $className, $annotation ) {
 
@@ -272,6 +318,9 @@ class Caching extends Standard implements KeyListener {
 
     /**
      * Intercept method
+     * 
+     * @param string $className
+     * @param string $annotation
      */
     public function getPropertiesWithAnnotation( $className, $annotation ) {
 

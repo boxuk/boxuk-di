@@ -25,7 +25,7 @@ interface Scope {
     /**
      * Sets a class in this scope, optionally specifying the name.
      *
-     * @param object $object
+     * @param object $object The object to set in this scope
      * @param string $className
      */
     public function set( $object, $className=null );
@@ -46,8 +46,8 @@ interface Scope {
      *
      * If the reflected class is not passed in then it should be created.
      *
-     * @param object $object
-     * @param ReflectionAnnotatedClass $oAnnotation
+     * @param object $object Object to look for in this scope
+     * @param string $className
      *
      * @return boolean
      */

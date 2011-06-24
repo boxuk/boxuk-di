@@ -66,8 +66,8 @@ class Standard implements Reflector {
     /**
      * Indicates if a class has a method
      *
-     * @param string $class
-     * @param string $method
+     * @param string $className
+     * @param string $methodName
      *
      * @return boolean
      */
@@ -88,8 +88,8 @@ class Standard implements Reflector {
     /**
      * Returns info about a methods parameters
      *
-     * @param string $class
-     * @param string $method
+     * @param string $className
+     * @param string $methodName
      *
      * @return array
      */

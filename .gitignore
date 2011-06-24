@@ -2,4 +2,7 @@ nbproject
 *.svn
 log/*
 tests/php/bootstrap.php
-
+lib/package.xml
+.DS_Store
+*.tgz
+catalog.xml

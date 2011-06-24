@@ -29,7 +29,7 @@ class ApcWrapper {
      * Store the value for the specified key
      *
      * @param string $key
-     * @param mixed $data
+     * @param mixed $data Cache data
      */
     public function store( $key, $data ) {
 

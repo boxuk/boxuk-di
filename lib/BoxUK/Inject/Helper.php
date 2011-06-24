@@ -24,7 +24,6 @@ class Helper {
     /**
      * Create a new injection helper for creating classes
      * 
-     * @param array $config
      */
     public function __construct( Config $config = null ) {
         
@@ -88,8 +87,6 @@ class Helper {
     /**
      * Returns the reflector cache to use based on the parameters
      *
-     * @param array $aConfig
-     *
      * @return \BoxUK\Reflect\Cache
      */
     public function getReflectorCache() {
@@ -128,7 +125,6 @@ class Helper {
      * Sets the key for a cache if it has been configured.  The $type defines
      * the parameter to pass to the get() method.
      *
-     * @param Cache $cache
      * @param string $type
      */
     protected function setKey( Cache $cache, $type ) {
@@ -145,7 +141,7 @@ class Helper {
      * Gets a config value of uses the default if it's null
      *
      * @param string $name
-     * @param mixed $default
+     * @param mixed $default Default if not found
      *
      * @return mixed
      */

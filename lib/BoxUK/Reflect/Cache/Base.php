@@ -50,7 +50,7 @@ abstract class Base implements Cache {
     /**
      * Writes data into the cache (not committed yet though)
      *
-     * @param array $cacheData
+     * @param array $cacheData Cache data
      */
     public function write( array $cacheData ) {
 
@@ -148,7 +148,6 @@ abstract class Base implements Cache {
     /**
      * Adds a key listener for notifications when the cache key is changed
      * 
-     * @param KeyListener $listener
      */
     public function addKeyListener( KeyListener $listener ) {
 
@@ -159,7 +158,6 @@ abstract class Base implements Cache {
     /**
      * Removed a key listener if it has been added
      *
-     * @param KeyListener $listener
      */
     public function removeKeyListener( KeyListener $listener ) {
 

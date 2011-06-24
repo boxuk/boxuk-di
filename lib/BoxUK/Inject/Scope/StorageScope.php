@@ -82,7 +82,7 @@ abstract class StorageScope implements Scope {
     /**
      * Checks a class to see if it is annotated with the storage scope
      *
-     * @param object $object
+     * @param object $object Object to check
      * @param string $className
      *
      * @return boolean
@@ -114,7 +114,7 @@ abstract class StorageScope implements Scope {
     /**
      * Stores the object, optionally specifying the name
      *
-     * @param object $object
+     * @param object $object Object to set
      * @param string $className
      */
     public function set( $object, $className=null ) {
@@ -156,7 +156,7 @@ abstract class StorageScope implements Scope {
     /**
      * Persists the array of data in storage
      *
-     * @param array $data
+     * @param array $data Key/value data
      */
     abstract protected function setData( array $data );
 

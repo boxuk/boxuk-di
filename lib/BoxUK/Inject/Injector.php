@@ -36,30 +36,29 @@ interface Injector {
     /**
      * Adds a scope to the injector
      *
-     * @param InjectorScope $scope
      */
     public function addScope( Scope $scope );
 
     /**
      * Returns a named scope if it has been added to the injector, null otherwise.
      *
-     * Specify 'singleton' for SingletonScope, etc...
-     *
+     * @param string $scopeName eg. 'singleton', or 'session'
+     * 
      * @return InjectorScope
      */
-    public function getScope( $name );
+    public function getScope( $scopeName );
 
     /**
      * Checks a class for any scope annotations
      *
-     * @param object $object
+     * @param object $object Object to check
      */
     public function checkScope( $object );
 
     /**
      * Do method and property injection on the specified object
      *
-     * @param object $object
+     * @param object $object Object to inject
      */
     public function inject( $object );
     

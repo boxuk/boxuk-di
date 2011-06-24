@@ -2,6 +2,7 @@
 /**
  * Indicates a class should have session scope
  * 
+ * @package BoxUK\Inject\Annotation
  * @copyright Copyright (c) 2010, Box UK
  * @license http://opensource.org/licenses/mit-license.php MIT License
  * @link http://github.com/boxuk/boxuk-di

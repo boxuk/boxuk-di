@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<project name="boxuk-di" basedir="." default="test">
+<project name="boxuk-di" basedir="." default="test-php">
 
-    <target name="test" description="Run tests">
+    <target name="test-php" description="Run PHP tests">
         <mkdir dir="log" />
         <exec command="phpunit --testdox --log-junit log/phpunit.xml tests/php/" passthru="true" checkreturn="true" />
+    </target>
+    
+    <target name="test-cs">
+        <exec command="phpcs -n lib/BoxUK --standard=BoxUK"
+              checkReturn="true"
+              passthru="true" />
+    </target>
+
+    <target name="test-php" depends="test-php,test-cs" description="Run all tests"></target>
+
+    <target name="pear-package">
+        <exec command="php package.php" passthru="true" />
+        <exec command="pear package lib/package.xml" passthru="true" />
     </target>
 
 </project>

@@ -108,7 +108,7 @@ class Standard implements \BoxUK\Inject\Config {
     /**
      * Initialise the config from an array of data
      *
-     * @param array $data
+     * @param array $data Name/value pairs
      */
     public function initFromArray( array $data ) {
 

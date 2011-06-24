@@ -28,7 +28,6 @@ class SingletonScope implements Scope {
     /**
      * Init the scope
      *
-     * @param AmaxusReflector $reflector
      */
     public function init( Reflector $reflector ) {
 
@@ -67,8 +66,8 @@ class SingletonScope implements Scope {
     /**
      * Checks if the class has been annotated as a singleton
      *
-     * @param object $object
-     * @param ReflectionAnnotatedClass $oReflClass
+     * @param object $object Object to check
+     * @param string $className
      *
      * @return boolean
      */
@@ -97,7 +96,7 @@ class SingletonScope implements Scope {
     /**
      * Stores the class in this scope
      *
-     * @param object $object
+     * @param object $object Object to set
      * @param string $className
      */
     public function set( $object, $className=null ) {

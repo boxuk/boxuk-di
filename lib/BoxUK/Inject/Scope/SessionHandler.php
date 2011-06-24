@@ -15,6 +15,8 @@ interface SessionHandler {
     /**
      * Indicates if the key exists in the session handler
      *
+     * @param string $key
+     * 
      * @return bool
      */
     public function has( $key );

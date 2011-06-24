@@ -40,7 +40,6 @@ class Standard implements Injector {
     /**
      * Create a new injector
      *
-     * @param BoxUK\Reflect\Reflector $reflector
      */
     public function __construct( Reflector $reflector ) {
 
@@ -68,7 +67,6 @@ class Standard implements Injector {
     /**
      * Adds a scope to the injector
      * 
-     * @param BoxUK\Inject\Scope $scope
      */
     public function addScope( Scope $scope ) {
 
@@ -124,7 +122,7 @@ class Standard implements Injector {
      * This will walk up the inheritance chain until it either finds a scope
      * annotation or hits the root.
      *
-     * @param object $object
+     * @param object $object Object to check
      */
     public function checkScope( $object ) {
 
@@ -165,7 +163,7 @@ class Standard implements Injector {
     /**
      * Do method and property injection on the specified object
      *
-     * @param object $object
+     * @param object $object Object to inject
      */
     public function inject( $object ) {
 
@@ -278,6 +276,7 @@ class Standard implements Injector {
      * @param string $className
      * @param string $methodName
      * @param string $paramName
+     * @param string $paramClass
      *
      * @return string
      */
@@ -300,7 +299,7 @@ class Standard implements Injector {
      * Checks a classes method to find injectable ones (InjectMethod), but won't
      * descend into ignored parent classes.
      *
-     * @param object $object
+     * @param object $object Object to inject
      */
     protected function injectMethods( $object ) {
 
@@ -316,7 +315,7 @@ class Standard implements Injector {
     /**
      * Injects a method with it's parameters
      *
-     * @param object $ $object
+     * @param object $object Object to inject
      * @param string $methodName
      */
     protected function injectMethod( $object, $methodName ) {
@@ -330,7 +329,7 @@ class Standard implements Injector {
     /**
      * Do property injection on the specified class
      *
-     * @param object $object
+     * @param object $object Object to inject
      */
     protected function injectProperties( $object ) {
 
@@ -346,7 +345,7 @@ class Standard implements Injector {
     /**
      * Inject the specified property of the class
      *
-     * @param object $object
+     * @param object $object Object to inject
      * @param string $propertyName
      */
     protected function injectProperty( $object, $propertyName ) {

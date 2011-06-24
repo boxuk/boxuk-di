@@ -19,7 +19,7 @@ interface Cache {
      * array if there is no cached data.  If there is data in the cache that will
      * be returned, use rawRead() to force getting new data.
      *
-     * @returna rray
+     * @return array
      */
     public function read();
 
@@ -34,7 +34,7 @@ interface Cache {
      * Writes the array of reflection cache information to the cache object, but
      * this is not committed to the persistence layer yet.
      *
-     * @param array $cacheData
+     * @param array $cacheData Cache data
      */
     public function write( array $cacheData );
 
@@ -67,14 +67,12 @@ interface Cache {
     /**
      * Adds a listener for notification when the key changes
      *
-     * @param KeyListener $listener
      */
     public function addKeyListener( KeyListener $listener );
 
     /**
      * Removes a listener that has been added for key changes
      *
-     * @param KeyListener $listener
      */
     public function removeKeyListener( KeyListener $listener );
     

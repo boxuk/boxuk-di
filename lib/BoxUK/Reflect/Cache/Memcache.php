@@ -108,7 +108,6 @@ class Memcache extends Base {
     /**
      * Sets the internal Memcache object
      * 
-     * @param \Memcache $memcache
      */
     public function setMemcache( \Memcache $memcache ) {
 

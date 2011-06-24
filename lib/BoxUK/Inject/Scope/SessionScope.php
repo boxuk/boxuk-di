@@ -30,8 +30,6 @@ class SessionScope extends StorageScope {
     /**
      * Create a new session scope handler
      *
-     * @param Reflector $reflector
-     * @param SessionManager $sessionHandler
      */
     public function __construct( Reflector $reflector, SessionHandler $sessionHandler ) {
 
@@ -57,11 +55,11 @@ class SessionScope extends StorageScope {
     /**
      * Sets the specified data in the session
      *
-     * @param array $aData
+     * @param array $data Key/value data
      */
-    protected function setData( array $aData ) {
+    protected function setData( array $data ) {
 
-        $this->sessionHandler->set( self::SESSION_KEY, $aData );
+        $this->sessionHandler->set( self::SESSION_KEY, $data );
 
     }
 
