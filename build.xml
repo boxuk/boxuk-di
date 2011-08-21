@@ -16,7 +16,7 @@
     <target name="test" depends="test-php,test-cs" description="Run all tests"></target>
 
     <target name="pear-package">
-        <exec command="php package.php" passthru="true" />
+        <exec command="php package.php ${version}" passthru="true" />
         <exec command="pear package lib/package.xml" passthru="true" />
     </target>
 
