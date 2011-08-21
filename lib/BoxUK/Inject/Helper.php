@@ -2,6 +2,12 @@
 
 namespace BoxUK\Inject;
 
+require_once __DIR__ . '/Annotation/ScopeSingleton.php';
+require_once __DIR__ . '/Annotation/ScopeSession.php';
+require_once __DIR__ . '/Annotation/InjectMethod.php';
+require_once __DIR__ . '/Annotation/InjectParam.php';
+require_once __DIR__ . '/Annotation/InjectProperty.php';
+
 use BoxUK\Reflect\Cache;
 use BoxUK\Reflect\Cache\Apc;
 use BoxUK\Reflect\Cache\Memcache;
