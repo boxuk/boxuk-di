@@ -3,7 +3,9 @@
  * Package file for creating PEAR packages. This file defines how the PEAR
  * package should be constructed.
  *
- * Before a new tag is made, VERSION should be incremented to the new tag identifier.
+ * usage: php package.php VERSION {channel}
+ *  VERSION is required
+ *  {CHANNEL}
  *
  * @author    Box UK <opensource@boxuk.com>
  * @copyright Copyright (c) 2011, Box UK
@@ -11,17 +13,21 @@
  * @link      http://github.com/boxuk/describr
  * @since     1.4.0
  */
-define( 'BOXUK_PEAR_CHANNEL', 'pear.boxuk.net' );
-
 require_once( 'PEAR/PackageFileManager2.php' );
 require_once( 'PEAR/PackageFileManager/File.php' );
 
-@list( $IGNORE, $version ) = $_SERVER['argv'];
+@list( $IGNORE, $version, $channel ) = $_SERVER['argv'];
 
 if ( !$version ) {
-    echo "usage: php package.php VERSION\n";
+    echo "usage: php package.php VERSION {CHANNEL}\n";
+    echo " VERSION is required\n";
+    echo " {CHANNEL} is optional\n";
     exit( 1 );
 }
+if( !$channel ) {
+    $channel = 'pear.boxuk.net';
+}
+define( 'BOXUK_PEAR_CHANNEL', $channel );
 
 $aFilesToIgnore = array();
 $aFilesToIgnore[] = 'bootstrap.php';
