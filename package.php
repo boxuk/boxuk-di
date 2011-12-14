@@ -43,7 +43,7 @@ $packagexml->setOptions(array(
 
 $packagexml->setPackage( 'inject' );
 $packagexml->setSummary( 'Dependency Injection and Reflection' );
-$packagexml->setDescription( 'Injections dont have to be painful' );
+$packagexml->setDescription( 'Injections don\'t have to be painful' );
 $packagexml->setChannel( BOXUK_PEAR_CHANNEL );
 $packagexml->setAPIVersion( $version );
 $packagexml->setReleaseVersion( $version );
