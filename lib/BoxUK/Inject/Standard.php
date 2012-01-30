@@ -224,6 +224,8 @@ class Standard implements Injector {
      * 
      * @param string $className
      * @param string $methodName
+     *
+     * @throws \Exception
      * 
      * @return array
      */
