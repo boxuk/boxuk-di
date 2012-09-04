@@ -4,7 +4,7 @@
 
     <target name="test-php" description="Run PHP tests">
         <mkdir dir="log" />
-        <exec command="phpunit --testdox --log-junit log/phpunit.xml tests/php/" passthru="true" checkreturn="true" />
+        <exec command="phpunit --coverage-clover=log/clover.xml --testdox --log-junit=log/phpunit.xml tests/php/" passthru="true" checkreturn="true" />
     </target>
     
     <target name="test-cs">
